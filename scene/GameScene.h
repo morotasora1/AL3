@@ -45,7 +45,7 @@ class GameScene {
   private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
-	Audio* audio_ = nullptr;
+	//Audio* audio_ = nullptr;
 	DebugText* debugText_ = nullptr;
 	Sprite* sprite_ = nullptr;
 	Model* model_ = nullptr;
@@ -61,5 +61,7 @@ class GameScene {
 	uint32_t textureHandle_ = 0;
 	uint32_t soundDataHandle_ = 0;
 	uint32_t voiceHandle_ = 0;
-	int32_t value_ = 0;
+	uint32_t scale_ = 0;
+	uint32_t rotation_ = 0;
+	uint32_t translation_ = 0;
 };

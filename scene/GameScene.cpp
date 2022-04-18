@@ -16,17 +16,29 @@ void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
-	audio_ = Audio::GetInstance();
+	//audio_ = Audio::GetInstance();
 	debugText_ = DebugText::GetInstance();
 	textureHandle_ = TextureManager::Load("mario.jpg");
 	sprite_ = Sprite::Create(textureHandle_, {100, 50});
 	model_ = Model::Create();
 	worldTransform_.Initialize();
 	viewProjection_.Initialize();
-	soundDataHandle_ = audio_->LoadWave("se_sad03.wav");
-	audio_->PlayWave(soundDataHandle_);
+	//soundDataHandle_ = audio_->LoadWave("se_sad03.wav");
+	//audio_->PlayWave(soundDataHandle_);
 	//音楽再生
-	voiceHandle_ = audio_->PlayWave(soundDataHandle_, true);
+	//voiceHandle_ = audio_->PlayWave(soundDataHandle_, true);
+
+	//X,Y,Zのスケーリング設定
+	worldTransform_.scale_ = {5.0f, 5.0f, 5.0f};
+
+	// X,Y,Z軸周りの回転角設定
+	worldTransform_.rotation_ = {XM_PI/4.0f, XM_PI / 4.0f, 0.0f};
+
+	//X,Y,Z軸周りの平行移動設定
+	worldTransform_.translation_ = {10.0f, 10.0f, 10.0f};
+	
+	//ワールドトランスフォームの初期化
+	worldTransform_.Initialize();
 }
 
 void GameScene::Update() 
@@ -40,19 +52,48 @@ void GameScene::Update()
 	//移動した座標をスプライトに反映
 	sprite_->SetPosition(position);
 
-	if (input_->TriggerKey(DIK_SPACE)) 
-	{
-		//音楽停止
-		audio_->StopWave(voiceHandle_);
-	}
+	//if (input_->TriggerKey(DIK_SPACE)) 
+	//{
+	//	//音楽停止
+	//	audio_->StopWave(voiceHandle_);
+	//}
 
 	//デバック文字
 	
-	value_++;
+	std::string strTranslasion_x =
+	  std::string("Translasion_x:") + std::to_string(worldTransform_.translation_.x);
 
-	std::string strDebug = std::string("Value") + std::to_string(value_);
+	std::string strTranslasion_y =
+	  std::string("y:") + std::to_string(worldTransform_.translation_.y);
+
+	std::string strTranslasion_z =
+	  std::string("z:") + std::to_string(worldTransform_.translation_.z);
+
+	std::string strRotation_x =
+	  std::string("rotation__x:") + std::to_string(worldTransform_.rotation_.x);
+
+	std::string strRotation_y = 
+		std::string("y:") + std::to_string(worldTransform_.rotation_.y);
+
+	std::string strRotation_z = 
+		std::string("z:") + std::to_string(worldTransform_.rotation_.z);
+
+	std::string strScale_x = std::string("scale_x:") + std::to_string(worldTransform_.scale_.x);
+
+	std::string strScale_y = std::string("y:") + std::to_string(worldTransform_.scale_.y);
+
+	std::string strScale_z = std::string("z:") + std::to_string(worldTransform_.scale_.z);
+
 	//デバックテキストの表示
-	debugText_->Print(strDebug, 50, 50, 1.0f);
+	debugText_->Print(strTranslasion_x, 50, 50, 1.0f);
+	debugText_->Print(strTranslasion_y, 300, 50, 1.0f);
+	debugText_->Print(strTranslasion_z, 450, 50, 1.0f);
+	debugText_->Print(strRotation_x, 50, 100, 1.0f);
+	debugText_->Print(strRotation_y, 300, 100, 1.0f);
+	debugText_->Print(strRotation_z, 450, 100, 1.0f);
+	debugText_->Print(strScale_x, 50, 150, 1.0f);
+	debugText_->Print(strScale_y, 300, 150, 1.0f);
+	debugText_->Print(strScale_z, 450, 150, 1.0f);
 }
 
 void GameScene::Draw() {
@@ -94,7 +135,7 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
-	sprite_->Draw();
+	//sprite_->Draw();
 
 	// デバッグテキストの描画
 	debugText_->DrawAll(commandList);
