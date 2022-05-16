@@ -5,7 +5,6 @@
 #include <d3dcompiler.h>
 #include <fstream>
 #include <sstream>
-
 #pragma comment(lib, "d3dcompiler.lib")
 
 using namespace std;

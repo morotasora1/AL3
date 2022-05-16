@@ -49,6 +49,7 @@ class GameScene {
 	DebugText* debugText_ = nullptr;
 	Sprite* sprite_ = nullptr;
 	Model* model_ = nullptr;
+
 	//ワールドトランスフォーム
 	WorldTransform worldTransform_;
 
