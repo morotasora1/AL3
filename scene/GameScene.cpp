@@ -1,7 +1,6 @@
 ﻿#include "GameScene.h"
 #include "TextureManager.h"
 #include <cassert>
-#include <random>
 
 using namespace DirectX;
 
@@ -23,78 +22,32 @@ void GameScene::Initialize() {
 	sprite_ = Sprite::Create(textureHandle_, {100, 50});
 	model_ = Model::Create();
 	worldTransform_.Initialize();
-	worldTransform_.UpdateMatrix();
 	viewProjection_.Initialize();
-
 	//soundDataHandle_ = audio_->LoadWave("se_sad03.wav");
 	//audio_->PlayWave(soundDataHandle_);
 	//音楽再生
 	//voiceHandle_ = audio_->PlayWave(soundDataHandle_, true);
 
-	//乱数シード生成
-	
 	//X,Y,Zのスケーリング設定
 	worldTransform_.scale_ = {5.0f, 5.0f, 5.0f};
 
 	// X,Y,Z軸周りの回転角設定
-	worldTransform_.rotation_ = {XM_PI/4.0f, XM_PI/4.0f, 1.0f};
+	worldTransform_.rotation_ = {XM_PI/4.0f, XM_PI / 4.0f, 0.0f};
 
 	//X,Y,Z軸周りの平行移動設定
-	worldTransform_.translation_ = {2.0f, 2.0f, 2.0f};
-
+	worldTransform_.translation_ = {10.0f, 10.0f, 10.0f};
 	
 	//ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
-
-	////カメラの視点座標を設定
-	//viewProjection_.eye = {0, 0, -10};
-
-	////カメラ上向きベクトルを設定
-	//viewProjection_.up = {cosf(XM_PI / 4.0f), sinf(XM_PI / 4.0f), 0.0f};
-	////ビュープロジェクションの初期化
-	viewProjection_.Initialize();
 }
 
 void GameScene::Update() 
 {
 	XMFLOAT2 position= sprite_->GetPosition();
 
-	if (input_->PushKey(DIK_RIGHT)) {
-		worldTransform_.rotation_.y += XM_PI / 36;
-	}
-
-	if (input_->PushKey(DIK_LEFT)) {
-		worldTransform_.rotation_.y -= XM_PI / 36;
-	}
-
-	//向き
-	XMFLOAT3 target = {sinf(worldTransform_.rotation_.y), 0, cosf(worldTransform_.rotation_.y)};
-
-	if (input_->PushKey(DIK_UP)) {
-		worldTransform_.translation_.x += target.x * 0.5;
-		worldTransform_.translation_.y += target.y * 0.5;
-		worldTransform_.translation_.z += target.z * 0.5;
-
-	}
-
-	if (input_->PushKey(DIK_DOWN)) {
-		worldTransform_.translation_.x -= target.x * 0.5;
-		worldTransform_.translation_.y -= target.y * 0.5;
-		worldTransform_.translation_.z -= target.z * 0.5;
-	}
-
-	//カメラ
-	viewProjection_.eye.x = worldTransform_.translation_.x - target.x * 77;
-	viewProjection_.eye.y = worldTransform_.translation_.y - target.y * 77;
-	viewProjection_.eye.z = worldTransform_.translation_.z - target.z * 77;
-
-	///注視点
-	viewProjection_.target.x = worldTransform_.translation_.x + target.x * 77;
-	viewProjection_.target.y = worldTransform_.translation_.y + target.y * 77;
-	viewProjection_.target.z = worldTransform_.translation_.z + target.z * 77;
-	//
-	worldTransform_.UpdateMatrix();
-	viewProjection_.UpdateMatrix();
+	//座標を{2,0}移動
+	position.x += 2.0f;
+	position.y += 1.0f;
 
 	//移動した座標をスプライトに反映
 	sprite_->SetPosition(position);
@@ -168,7 +121,6 @@ void GameScene::Draw() {
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
-	
 	/// </summary>
 	/// //3Dモデル描画
 	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
