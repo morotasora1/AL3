@@ -10,6 +10,7 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include "DebugCamera.h"
+#include <DirectXMath.h>
 
 /// <summary>
 /// ゲームシーン
@@ -47,6 +48,7 @@ class GameScene {
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 	DebugText* debugText_ = nullptr;
+	Sprite* sprite_ = nullptr;
 	//3Dモデル
 	Model* model_ = nullptr;
 	DebugCamera* debugCamera_ = nullptr;
@@ -62,4 +64,7 @@ class GameScene {
 	/// </summary>
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0;
+	uint32_t scale_ = 0;
+	uint32_t rotation_ = 0;
+	uint32_t translation_ = 0;
 };
