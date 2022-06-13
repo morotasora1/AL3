@@ -4,7 +4,7 @@
 #include <cassert>
 #include "AxisIndicator.h"
 #include "PrimitiveDrawer.h"
-
+#include "AxisIndicator.h"
 
 
 GameScene::GameScene() {}
