@@ -9,7 +9,8 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
-#include "DebugCamera.h"
+#include <DirectXMath.h>
+#include"DebugCamera.h"
 
 /// <summary>
 /// ゲームシーン
@@ -45,21 +46,24 @@ class GameScene {
   private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
-	Audio* audio_ = nullptr;
+	//Audio* audio_ = nullptr;
 	DebugText* debugText_ = nullptr;
-	//3Dモデル
+	Sprite* sprite_ = nullptr;
 	Model* model_ = nullptr;
-	DebugCamera* debugCamera_ = nullptr;
-
 	//ワールドトランスフォーム
 	WorldTransform worldTransform_;
 
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
 
+	DebugCamera* debugCamera_ = nullptr;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
-	// テクスチャハンドル
 	uint32_t textureHandle_ = 0;
+	uint32_t soundDataHandle_ = 0;
+	uint32_t voiceHandle_ = 0;
+	uint32_t scale_ = 0;
+	uint32_t rotation_ = 0;
+	uint32_t translation_ = 0;
 };
